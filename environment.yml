@@ -1,0 +1,17 @@
+name: quimioinf
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - rdkit>=2024.03
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  - umap-learn
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - pip
+  - pip:
+      - chembl_webresource_client
