@@ -66,3 +66,30 @@ Filtro de Masa Molecular (MW):
 Rango permitido: 50 Da – 5000 Da.
 
 Nota de corte: El límite superior de 5000 Da responde a la presencia potencial de glicósidos y conjugados complejas de alto peso molecular. Se registrará la cantidad exacta de estructuras excluidas por debajo y por encima de estos umbrales.
+
+## 8 de Noviembre de 2026 - Perfilado quimioinformático y análisis 
+
+### 1. Consolidación de Datasets
+- Se unificaron 3 conjuntos de datos en un solo DataFrame de trabajo:
+  - Productos naturales (`curado.csv`): 503 moléculas.
+  - Fármacos aprobados (`referencia_aprobados.csv`): 2,156 moléculas.
+  - Moléculas aleatorias (`referencia_aleatoria.csv`): 503 moléculas.
+- Se validaron y estandarizaron las columnas SMILES, procesando un total de 3,162 moléculas estructuralmente válidas bajo la variable `SMILES_UNIFICADO`.
+
+### 2. Extracción de Características (RDKit)
+- **Descriptores:** Se calcularon métricas clave (MW, cLogP, TPSA, HBD, HBA, RotB, Fracción Csp3, Anillos, Estereocentros, Átomos Pesados y QED) para el corpus total.
+- **Fingerprints:** Se obtuvieron los Morgan Fingerprints utilizando un radio de 2 y un vector de 2048 bits.
+- **Entregables:** Se exportó exitosamente el archivo `data/processed/torresprocessed/torresF2/descriptores.csv`, el cual incluye la matriz completa para las 503 moléculas curadas (73 columnas).
+
+### 3. Comparación Estadística No Paramétrica
+- Se evaluó el tamaño del efecto (Delta de Cliff) y se corrieron pruebas de Mann-Whitney U para determinar diferencias significativas entre el grupo de productos naturales y los grupos de control.
+- Los valores $p$ fueron sometidos a corrección de Holm para comparaciones múltiples.
+- **Entregables:**
+  - Archivo de resultados: `results/torresresults/torresF2/comparacion_descriptores.csv` (documentando 22 comparaciones válidas).
+  - Registro de exclusión: `descriptores_excluidos.csv` (para descriptores con muestra insuficiente).
+
+### 4. Análisis de Componentes Principales (PCA)
+- Se aplicó un ajuste con `StandardScaler` de forma global para los tres conjuntos, garantizando que el espacio químico de referencia no tuviera desplazamientos artificiales.
+- **Resultados del PCA:**
+  - **PC1 (59.8% de la varianza):** Dominado fuertemente por TPSA, MW, HBA, y conteo de Átomos Pesados.
+  - **PC2 (11.2% de la varianza):** Definido principalmente por variables de rigidez estructural (Fracción Csp3) y lipofilicidad (cLogP).
