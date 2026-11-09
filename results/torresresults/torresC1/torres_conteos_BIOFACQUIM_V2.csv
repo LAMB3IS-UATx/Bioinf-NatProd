@@ -1,0 +1,6 @@
+paso,entran,salen,descartados,pct_retencion_paso,pct_retencion_total,motivo
+0_crudo,531,531,0,100.0,100.0,
+1_estandarizacion,531,531,0,100.0,100.0,Fallo al estandarizar o limpiar sales
+2_elementos,531,531,0,100.0,100.0,Contiene metales o inorgánicos
+3_masa,531,531,0,100.0,100.0,Masa < 50 o > 5000
+4_duplicados,531,503,28,94.73,94.73,Estructuras base duplicadas (estereoisómeros ignorados)
